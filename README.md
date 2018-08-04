@@ -27,7 +27,35 @@ convenient wrapper functions to do the dirty work for you.  It's up to
 Install
 -------
 
-In your awesome configuration directory:
+First, you need to install [redshift][] and set up a configuration file
+to help determine your location:
+
+    ; ~/.config/redshift.conf
+    [redshift]
+    temp-day=6500K
+    temp-night=5000
+    transition=1
+    ;gamma=0.8:0.7:0.8
+    gamma=1.000:1.000:1.000
+    ;location-provider=geoclue
+    location-provider=manual
+    adjustment-method=vidmode
+    ;brightness=1.0:0.5
+
+    ; The location provider and adjustment method settings
+    ; are in their own sections.
+    ; This is an example lat long for Västerås, Sweden
+    [manual]
+    lat=59.61617
+    lon=16.55276
+
+    ; In this example screen 1 is adjusted by vidmode. Note
+    ; that the numbering starts from 0, so this is actually
+    ; the second screen.
+    ;[vidmode]
+    ;screen=1
+
+Second, in your awesome configuration directory:
 
 ```sh
     cd ~/.config/awesome/
@@ -57,7 +85,21 @@ Done! Now you have these functions at your disposal:
 * `redshift.undim()`
 * `redshift.toggle()`
 
-(They're pretty self-explanatory...)
+They're pretty self-explanatory ... but here's an example for your
+`rc.lua`:
+
+```lua
+    -- Toggle redshift (night mode)
+    globalkeys = gears.table.join(globalkeys,
+            awful.key({ modkey }, "Pause",      function () redshift.toggle() end),
+            awful.key({ modkey }, "d",          function () redshift.dim() end),
+            awful.key({ modkey, "Shift" }, "d", function () redshift.undim() end)
+    )
+    root.keys(globalkeys)
+```
+
+The `Pause` key is used by the author to activate my the screensaver, so
+Win+Pause is used here to toggle night mode with redshift.
 
 [Awesome window manager]: http://awesome.naquadah.org
 [redshift]: http://jonls.dk/redshift/
