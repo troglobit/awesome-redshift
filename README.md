@@ -29,8 +29,10 @@ Install
 
 In your awesome configuration directory:
 
+```sh
     cd ~/.config/awesome/
     git clone git://github.com/troglobit/awesome-redshift.git redshift
+```
 
 In your `rc.lua`:
 
