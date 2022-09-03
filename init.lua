@@ -5,7 +5,9 @@
 --
 
 -- standard libraries
-local spawn = require("awful.util").spawn or require("awful.spawn")
+local has_awful_spawn = pcall(require, "awful.spawn")
+
+local spawn = has_awful_spawn and require("awful.spawn") or require("awful.util").spawn
 
 local has_gears_timer = pcall(require, "gears.timer")
 ---@diagnostic disable-next-line:undefined-global
