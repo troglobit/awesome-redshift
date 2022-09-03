@@ -5,7 +5,8 @@
 --
 
 -- standard libraries
-local awful = require("awful")
+local spawn = require("awful.util").spawn or require("awful.spawn")
+local gtimer = timer or require("gears.timer")
 
 -- variables
 local redshift = {}
@@ -13,16 +14,16 @@ redshift.redshift = "/usr/bin/redshift"    -- binary path
 redshift.method   = "randr"                -- randr or vidmode
 redshift.options  = ""                     -- additional redshift command options
 redshift.state    = 1                      -- 1 for screen dimming, 0 for none
-redshift.timer    = timer({ timeout = 60 })
+redshift.timer    = gtimer({ timeout = 60 })
 
 -- functions
 function redshift.dim()
     if redshift.method == "randr" then
-        awful.util.spawn(redshift.redshift .. " -m randr -o " .. redshift.options)
+        spawn(redshift.redshift .. " -m randr -o " .. redshift.options)
     elseif redshift.method == "vidmode" then
         local screens = screen.count()
         for i = 0, screens - 1 do
-            awful.util.spawn(redshift.redshift .. " -m vidmode:screen=" .. i ..
+            spawn(redshift.redshift .. " -m vidmode:screen=" .. i ..
                              " -o " .. redshift.options)
         end
     end
@@ -33,11 +34,11 @@ end
 redshift.timer:connect_signal("timeout", redshift.dim)
 function redshift.undim()
     if redshift.method == "randr" then
-        awful.util.spawn(redshift.redshift .. " -m randr -x " .. redshift.options)
+        spawn(redshift.redshift .. " -m randr -x " .. redshift.options)
     elseif redshift.method == "vidmode" then
         local screens = screen.count()
         for i = 0, screens - 1 do
-            awful.util.spawn(redshift.redshift .. " -m vidmode:screen=" .. i ..
+            spawn(redshift.redshift .. " -m vidmode:screen=" .. i ..
                              " -x " .. redshift.options)
         end
     end
