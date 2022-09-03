@@ -6,6 +6,7 @@
 
 -- standard libraries
 local spawn = require("awful.util").spawn or require("awful.spawn")
+---@diagnostic disable-next-line:undefined-global
 local gtimer = timer or require("gears.timer")
 
 -- variables
