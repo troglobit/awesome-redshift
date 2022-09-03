@@ -6,8 +6,10 @@
 
 -- standard libraries
 local spawn = require("awful.util").spawn or require("awful.spawn")
+
+local has_gears_timer = pcall(require, "gears.timer")
 ---@diagnostic disable-next-line:undefined-global
-local gtimer = timer or require("gears.timer")
+local gtimer = has_gears_timer and require("gears.timer") or timer
 
 -- variables
 local redshift = {}
