@@ -65,7 +65,7 @@ Second, in your awesome configuration directory:
 In your `rc.lua`:
 
 ```lua
-    local redshift = require("redshift")
+    local redshift = require("awesome-redshift")
 
     -- set binary path (optional)
     redshift.redshift = "/usr/bin/redshift"
